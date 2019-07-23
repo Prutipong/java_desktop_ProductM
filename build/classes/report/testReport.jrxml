@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NameReport" class="java.lang.String"/>
+	<parameter name="NameCompany" class="java.lang.String"/>
+	<parameter name="UserName" class="java.lang.String"/>
+	<parameter name="AppName" class="java.lang.String"/>
+	<parameter name="TotalList" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from product p left join groupfile g ON(p.pgroup = g.gcode) order by p.pgroup,p.pcode]]>
+	</queryString>
+	<field name="pcode" class="java.lang.String"/>
+	<field name="pdesc" class="java.lang.String"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="p_vat" class="java.lang.String"/>
+	<field name="p_service" class="java.lang.String"/>
+	<field name="pgroup" class="java.lang.String"/>
+	<field name="Id" class="java.lang.Integer"/>
+	<field name="gcode" class="java.lang.String"/>
+	<field name="gname" class="java.lang.String"/>
+	<variable name="GroupAllGroup" class="java.lang.Integer" resetType="Group" resetGroup="GroupPgroup" calculation="Count">
+		<variableExpression><![CDATA[$F{pgroup}]]></variableExpression>
+	</variable>
+	<variable name="GroupAll" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{pcode}]]></variableExpression>
+	</variable>
+	<group name="GroupPgroup" isStartNewColumn="true">
+		<groupExpression><![CDATA[$F{pgroup}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="9" y="2" width="102" height="18"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["กลุ่มที่ : "+$F{pgroup}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="554" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="196" y="1" width="176" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["รวม : "+$V{GroupAllGroup}+" รายการ"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="0" width="553" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="7" width="552" height="19"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{NameReport}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="26" width="554" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{NameCompany}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="33" y="45" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="45" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="45" width="34" height="20"/>
+				<textElement/>
+				<text><![CDATA[หน้าที่ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="506" y="45" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="86" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[pcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="0" width="98" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[pdesc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="0" width="135" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[p_vat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="117" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[p_service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="114" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[price]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="552" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="86" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="0" width="98" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pdesc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="196" y="0" width="106" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="0" width="135" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{p_vat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="0" width="118" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{p_service}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="485" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{UserName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="64" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{AppName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="175" y="2" width="215" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["รวมรายการทั้งหมด : "+$V{GroupAll}+" รายการ"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
